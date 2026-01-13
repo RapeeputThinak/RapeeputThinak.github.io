@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>เรซูเม่ - IT / Web Developer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Prompt:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #f1f5f9;
+            --bg-secondary: #e2e8f0;
+            --sidebar-bg: #1e293b;
+            --text-primary: #334155;
+            --text-secondary: #64748b;
+            --text-light: #e2e8f0;
+            --accent: #0ea5e9;
+            --accent-light: #38bdf8;
+            --success: #10b981;
+            --border: #cbd5e1;
+        }
+
+        body {
+            font-family: 'Prompt', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.7;
+            min-height: 100vh;
+            padding: 2rem 1rem;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            background: #ffffff;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            display: grid;
+            grid-template-columns: 320px 1fr;
+        }
+
+        /* Sidebar Styles */
+        .sidebar {
+            background: var(--sidebar-bg);
+            color: var(--text-light);
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .profile-section {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .profile-image {
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent), var(--accent-light));
+            margin: 0 auto 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: white;
+            border: 4px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .profile-name {
+            font-family: 'Fira Code', monospace;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.5px;
+        }
+
+        .profile-title {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.9rem;
+            color: var(--accent-light);
+            padding: 0.5rem 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            display: inline-block;
+        }
+
+        .contact-section {
+            margin-bottom: 2rem;
+        }
+
+        .section-label {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--accent);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .section-label::before {
+            content: '<';
+        }
+
+        .section-label::after {
+            content: '/>';
+        }
+
+        .contact-list {
+            list-style: none;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .contact-item i {
+            color: var(--accent-light);
+            width: 20px;
+            margin-top: 4px;
+            flex-shrink: 0;
+        }
+
+        .contact-item .label {
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+            display: block;
+            margin-bottom: 2px;
+        }
+
+        .contact-item .value {
+            color: var(--text-light);
+        }
+
+        .sidebar-section {
+            margin-bottom: 1.5rem;
+        }
+
+        .skills-list {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .skill-tag {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.8rem;
+            background: rgba(14, 165, 233, 0.2);
+            color: var(--accent-light);
+            padding: 0.4rem 0.8rem;
+            border-radius: 6px;
+            border: 1px solid rgba(14, 165, 233, 0.3);
+        }
+
+        .interests-list {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .interest-tag {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.8rem;
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-light);
+            padding: 0.4rem 0.8rem;
+            border-radius: 6px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Main Content Styles */
+        .main-content {
+            padding: 2.5rem;
+            background: #ffffff;
+        }
+
+        .objective-section {
+            margin-bottom: 2.5rem;
+            padding: 1.5rem;
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            border-radius: 12px;
+            border-left: 4px solid var(--accent);
+        }
+
+        .objective-section .section-label {
+            margin-bottom: 1rem;
+        }
+
+        .objective-text {
+            color: var(--text-primary);
+            font-size: 1rem;
+            line-height: 1.8;
+        }
+
+        .content-section {
+            margin-bottom: 2.5rem;
+        }
+
+        .section-header {
+            font-family: 'Fira Code', monospace;
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--sidebar-bg);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .section-header::before {
+            content: '{ ';
+            color: var(--accent);
+        }
+
+        .section-header::after {
+            content: ' }';
+            color: var(--accent);
+        }
+
+        .timeline {
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 8px;
+            bottom: 8px;
+            width: 2px;
+            background: var(--border);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px dashed var(--border);
+        }
+
+        .timeline-item:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -1.5rem;
+            top: 8px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--accent);
+            border: 3px solid #ffffff;
+            box-shadow: 0 0 0 2px var(--accent);
+        }
+
+        .timeline-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 0.5rem;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .timeline-title {
+            font-family: 'Fira Code', monospace;
+            font-weight: 600;
+            font-size: 1rem;
+            color: var(--text-primary);
+        }
+
+        .timeline-date {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.85rem;
+            color: var(--accent);
+            background: rgba(14, 165, 233, 0.1);
+            padding: 0.25rem 0.75rem;
+            border-radius: 4px;
+        }
+
+        .timeline-subtitle {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.75rem;
+        }
+
+        .timeline-description {
+            list-style: none;
+        }
+
+        .timeline-description li {
+            position: relative;
+            padding-left: 1.25rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .timeline-description li::before {
+            content: '▹';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+        }
+
+        /* Skills Section in Main Content */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .skill-category {
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 1.5rem;
+        }
+
+        .skill-category-title {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.9rem;
+            color: var(--accent);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .skill-category-title::before {
+            content: '//';
+            opacity: 0.5;
+        }
+
+        .skill-items {
+            list-style: none;
+        }
+
+        .skill-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .skill-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .skill-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            background: var(--sidebar-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent-light);
+            font-size: 0.9rem;
+            flex-shrink: 0;
+        }
+
+        .skill-name {
+            font-size: 0.95rem;
+            color: var(--text-primary);
+        }
+
+        /* Languages */
+        .languages-list {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .language-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        .language-item i {
+            color: var(--accent);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 900px) {
+            .container {
+                grid-template-columns: 1fr;
+                max-width: 700px;
+            }
+
+            .sidebar {
+                flex-direction: row;
+                flex-wrap: wrap;
+                justify-content: center;
+                text-align: center;
+                padding: 1.5rem;
+            }
+
+            .profile-section {
+                width: 100%;
+                margin-bottom: 1.5rem;
+                padding-bottom: 1.5rem;
+            }
+
+            .contact-section,
+            .sidebar-section {
+                flex: 1;
+                min-width: 200px;
+                margin-bottom: 0;
+                text-align: center;
+            }
+
+            .contact-item {
+                justify-content: center;
+            }
+
+            .skills-list,
+            .interests-list {
+                justify-content: center;
+            }
+
+            .main-content {
+                padding: 1.5rem;
+            }
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 1rem;
+            }
+
+            .container {
+                border-radius: 12px;
+            }
+
+            .sidebar {
+                flex-direction: column;
+            }
+
+            .contact-section,
+            .sidebar-section {
+                width: 100%;
+                text-align: center;
+            }
+
+            .profile-name {
+                font-size: 1.25rem;
+            }
+
+            .section-header {
+                font-size: 1.1rem;
+            }
+
+            .timeline-header {
+                flex-direction: column;
+            }
+
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Print Styles */
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+
+            .container {
+                box-shadow: none;
+                border-radius: 0;
+            }
+
+            .sidebar {
+                background: var(--sidebar-bg) !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="profile-section">
+                <div class="profile-image">
+                    <i class="fas fa-user"></i>
+                </div>
+                <h1 class="profile-name">ผู้สมัคร</h1>
+                <div class="profile-title">&lt;Programmer /&gt;</div>
+            </div>
+
+            <div class="contact-section">
+                <h3 class="section-label">Contact</h3>
+                <ul class="contact-list">
+                    <li class="contact-item">
+                        <i class="fas fa-calendar-alt"></i>
+                        <div>
+                            <span class="label">วันเกิด</span>
+                            <span class="value">1 มกราคม 2545 (23 ปี)</span>
+                        </div>
+                    </li>
+                    <li class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <span class="label">ที่อยู่</span>
+                            <span class="value">99/9 เขต/พื้นที่ กรุงเทพมหานคร 10000</span>
+                        </div>
+                    </li>
+                    <li class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <div>
+                            <span class="label">โทรศัพท์</span>
+                            <span class="value">0X-XXX-XXXX</span>
+                        </div>
+                    </li>
+                    <li class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <span class="label">อีเมล</span>
+                            <span class="value">example@email.com</span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="sidebar-section">
+                <h3 class="section-label">Skills</h3>
+                <ul class="skills-list">
+                    <li class="skill-tag">Computer</li>
+                    <li class="skill-tag">HTML/CSS/JS</li>
+                    <li class="skill-tag">MS Office</li>
+                    <li class="skill-tag">Communication</li>
+                </ul>
+            </div>
+
+            <div class="sidebar-section">
+                <h3 class="section-label">Languages</h3>
+                <ul class="skills-list">
+                    <li class="skill-tag">ภาษาไทย</li>
+                    <li class="skill-tag">ภาษาอังกฤษ</li>
+                </ul>
+            </div>
+
+            <div class="sidebar-section">
+                <h3 class="section-label">Interests</h3>
+                <ul class="interests-list">
+                    <li class="interest-tag"><i class="fas fa-book"></i> การอ่าน</li>
+                    <li class="interest-tag"><i class="fas fa-music"></i> ดนตรี</li>
+                </ul>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <section class="objective-section">
+                <h3 class="section-label">Career Objective</h3>
+                <p class="objective-text">
+                    มุ่งมั่นพัฒนาตนเองในสายงาน <strong>Programmer / Web Developer / IT Support</strong>
+                    มีความกระตือรือร้นในการเรียนรู้เทคโนโลยีใหม่ๆ และพร้อมที่จะท้าทายงานที่ซับซ้อน
+                    มุ่งเน้นการทำงานเป็นทีมและสร้างผลงานที่มีคุณภาพ
+                </p>
+            </section>
+
+            <section class="content-section">
+                <h2 class="section-header">Experience</h2>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-header">
+                            <h4 class="timeline-title">IT Support / Developer</h4>
+                            <span class="timeline-date">2018 - 2563</span>
+                        </div>
+                        <p class="timeline-subtitle">ฝึกงาน / พนักงาน</p>
+                        <ul class="timeline-description">
+                            <li>ดูแลและ Support ระบบ IT ให้กับผู้ใช้งาน</li>
+                            <li>พัฒนาเว็บไซต์ด้วย HTML, CSS, JavaScript</li>
+                            <li>แก้ไขปัญหาและให้ความช่วยเหลือด้านเทคนิคแก่ผู้ใช้งาน</li>
+                            <li>ทำงานร่วมกับทีมเพื่อพัฒนาระบบและปรับปรุงกระบวนการทำงาน</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-section">
+                <h2 class="section-header">Education</h2>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-header">
+                            <h4 class="timeline-title">ปริญญาตรี - เทคโนโลยีสารสนเทศ</h4>
+                            <span class="timeline-date">2561 - 2563</span>
+                        </div>
+                        <p class="timeline-subtitle">มหาวิทยาลัยในกรุงเทพมหานคร</p>
+                        <ul class="timeline-description">
+                            <li>เรียนด้านเทคโนโลยีสารสนเทศและการพัฒนาซอฟต์แวร์</li>
+                            <li>ศึกษาหลักสูตรที่เน้นการปฏิบัติและการเตรียมความพร้อมสู่อุตสาหกรรม</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-section">
+                <h2 class="section-header">Skills Detail</h2>
+                <div class="skills-grid">
+                    <div class="skill-category">
+                        <h4 class="skill-category-title">Technical Skills</h4>
+                        <ul class="skill-items">
+                            <li class="skill-item">
+                                <div class="skill-icon"><i class="fas fa-code"></i></div>
+                                <span class="skill-name">HTML, CSS, JavaScript</span>
+                            </li>
+                            <li class="skill-item">
+                                <div class="skill-icon"><i class="fas fa-laptop"></i></div>
+                                <span class="skill-name">Computer Proficiency</span>
+                            </li>
+                            <li class="skill-item">
+                                <div class="skill-icon"><i class="fas fa-file-word"></i></div>
+                                <span class="skill-name">Microsoft Office</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="skill-category">
+                        <h4 class="skill-category-title">Soft Skills</h4>
+                        <ul class="skill-items">
+                            <li class="skill-item">
+                                <div class="skill-icon"><i class="fas fa-comments"></i></div>
+                                <span class="skill-name">การสื่อสารที่ดี</span>
+                            </li>
+                            <li class="skill-item">
+                                <div class="skill-icon"><i class="fas fa-users"></i></div>
+                                <span class="skill-name">การทำงานเป็นทีม</span>
+                            </li>
+                            <li class="skill-item">
+                                <div class="skill-icon"><i class="fas fa-brain"></i></div>
+                                <span class="skill-name">การเรียนรู้รวดเร็ว</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-section">
+                <h2 class="section-header">Languages</h2>
+                <div class="languages-list">
+                    <div class="language-item">
+                        <i class="fas fa-check-circle"></i>
+                        <span><strong>ภาษาไทย</strong> - ระดับดีมาก</span>
+                    </div>
+                    <div class="language-item">
+                        <i class="fas fa-check-circle"></i>
+                        <span><strong>ภาษาอังกฤษ</strong> - ระดับดี</span>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+</body>
+</html>
